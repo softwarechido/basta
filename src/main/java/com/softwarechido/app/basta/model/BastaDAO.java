@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class BastaDAO {
 
-	public final String SERVER = "jdbc:mysql://HOST-URL:1527/Basta";
+	public final String SERVER = "jdbc:mysql://HOST-URL:1527/basta";
 	public final String USERNAME = "";
 	public final String PASSWORD = "";
 
