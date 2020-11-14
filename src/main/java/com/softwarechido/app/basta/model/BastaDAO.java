@@ -3,13 +3,14 @@ package com.softwarechido.app.basta.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BastaDAO {
 
-	public final String SERVER = "jdbc:mysql://HOST-URL:1527/basta";
-	public final String USERNAME = "";
-	public final String PASSWORD = "";
+	public final String SERVER = "jdbc:mysql://basta.cy5g8qjisfaw.us-east-1.rds.amazonaws.com:3306/basta";
+	public final String USERNAME = "admin";
+	public final String PASSWORD = "softwarechido1";
 
 	public final String COLUMNAS = "nombre, apellido, florFruto, animal";
 	public final String INSERTSTATEMENT = "INSERT INTO bastapartida VALUES (?,?,?,?,?)";
@@ -41,93 +42,40 @@ public class BastaDAO {
 	}
 
 	public void guardarJuego(BastaTO myBastaTO) {
-
-		PreparedStatement sentencia;
-		String query = "";
+		System.out.println("Guardando juego...");
 		Connection conn = null;
+		PreparedStatement sentencia=null;
+		ResultSet resultSet = null;
 		try {
-
 			conn = getConnection();
 			sentencia = conn.prepareStatement(INSERTSTATEMENT);
-
-			System.out.println("DEBUG: Ejectuando query --> " + query);
-
 			sentencia.setString(1, myBastaTO.getLetra() + "");
-			System.out.println("DEBUG: Ejectuando query --> " + query);
-
 			sentencia.setString(2, myBastaTO.getNombre());
-			System.out.println("DEBUG: Ejectuando query --> " + query);
 			sentencia.setString(3, myBastaTO.getApellido());
-
 			sentencia.setString(4, myBastaTO.getFlorFruto());
-			System.out.println("DEBUG: Ejectuando query --> " + query);
 			sentencia.setString(5, myBastaTO.getAnimal());
-
-			System.out.println("DEBUG: Ejectuando query --> " + query);
-
 			sentencia.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-
+			sentencia.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			if (resultSet != null) {
+		        try {
+		        	resultSet.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        resultSet = null;
+		    }
+
+		    if (sentencia != null) {
+		        try {
+		        	sentencia.close();
+		        } catch (SQLException sqlEx) { } // ignore
+
+		        sentencia = null;
+		    }
 		}
 	}
-
-//			
-//			public UsuarioTO buscarUsuarioPorEmail(String email) {
-	//
-//				PreparedStatement sentencia;
-//				String query = "";
-//				Connection conn = null;
-//				try {
-//					conn = getConnection();
-//					query = "select "+ COLUMNAS + " from Usuario where email =?";
-//					System.out.println("ejectuando query --> "+query);
-//					sentencia = conn.prepareStatement(query);
-//					sentencia.setString(1, email);
-//					ResultSet resultado = sentencia.executeQuery();
-//					String id = null; String nombre = null; String contrasena = null; String nivel = null;
-//					if (resultado.next() == true ){
-//						id = resultado.getString("id");
-//						nombre = resultado.getString("nombre");
-//						contrasena = resultado.getString("contrasena");
-//						nivel = resultado.getString("nivel");				
-//					}
-//					UsuarioTO myUsuario = new UsuarioTO();
-//					myUsuario.setId(id);			
-//					myUsuario.setNombre(nombre);
-//					myUsuario.setContrasena(contrasena);
-//					myUsuario.setNivel(Nivel.valueOf(nivel));
-//					myUsuario.setEmail(email);
-//					return myUsuario;						
-//					
-//				} catch (SQLException e) {
-//					System.out.println(e.getMessage());
-//				}
-//				finally{
-//					try {
-//						conn.close();
-//					} catch (SQLException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//				return null;
-//			}
-//		}
-	//
-	//
-//			
-//			
-//			
-//			
-//			return myBastaTO; 
-//			
-//		}
-
 }
