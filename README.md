@@ -9,7 +9,7 @@ mvn assembly:single if you require full jar to run from console
 
 change SERVER, USERNAME, PASSWORD from model/BastaDAO class
 
-`
+```
 CREATE TABLE bastapartida (
    letra CHAR(1) NOT NULL,
    nombre VARCHAR(100) NOT NULL,
@@ -17,6 +17,6 @@ CREATE TABLE bastapartida (
    florFruto VARCHAR(100) NOT NULL,
    animal VARCHAR(100) NOT NULL
 );
-`
+```
 
 
