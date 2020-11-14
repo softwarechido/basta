@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class BastaDAO {
 
-	public final String SERVER = "jdbc:mysql://localhost:1527/BastaDB";
-	public final String USERNAME = "app";
-	public final String PASSWORD = "derby";
+	public final String SERVER = "jdbc:mysql://HOST-URL:1527/Basta";
+	public final String USERNAME = "";
+	public final String PASSWORD = "";
 
 	public final String COLUMNAS = "nombre, apellido, florFruto, animal";
 	public final String INSERTSTATEMENT = "INSERT INTO bastapartida VALUES (?,?,?,?,?)";
